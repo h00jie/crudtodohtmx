@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  tododbpostgres:
+    image: postgres:13
+    container_name: tododbpostgres
+    restart: always
+    environment:
+      POSTGRES_DB: tododb
+      POSTGRES_USER: your_db_username
+      POSTGRES_PASSWORD: your_db_password
+    ports:
+      - "5433:5432"
+    volumes:
+      - crud_todo_htmx_postgres_data:/var/lib/postgresql/data
+    networks:
+      - crud_todo_htmx_network
+
+  crud_todo_htmx_app:
+    image: docker.io/library/crud-todo-htmx:latest
+    container_name: crud_todo_htmx_app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - tododbpostgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://tododbpostgres:5432/tododb
+      SPRING_DATASOURCE_USERNAME: your_db_username
+      SPRING_DATASOURCE_PASSWORD: your_db_password
+    networks:
+      - crud_todo_htmx_network
+
+
+networks:
+  crud_todo_htmx_network:
+    driver: bridge
+
+volumes:
+  crud_todo_htmx_postgres_data:
