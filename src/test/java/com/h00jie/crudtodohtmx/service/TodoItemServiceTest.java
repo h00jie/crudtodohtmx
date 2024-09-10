@@ -6,6 +6,8 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import com.h00jie.crudtodohtmx.dto.TodoItemCreateDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.mockito.ArgumentMatchers.any;
@@ -17,7 +19,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import org.mockito.MockitoAnnotations;
 
-import com.h00jie.crudtodohtmx.dto.TodoItemRequestDTO;
 import com.h00jie.crudtodohtmx.dto.TodoItemResponseDTO;
 import com.h00jie.crudtodohtmx.model.TodoItem;
 import com.h00jie.crudtodohtmx.repository.TodoItemRepository;
@@ -41,6 +42,7 @@ class TodoItemServiceTest {
     void testFindAll() {
         TodoItem item1 = new TodoItem(1L, "Proto todo", false);
         TodoItem item2 = new TodoItem(2L, "Deutero todo", true);
+
         when(todoItemRepository.findAll()).thenReturn(Arrays.asList(item1, item2));
 
         List<TodoItemResponseDTO> todos = todoItemService.findAll();
@@ -52,7 +54,7 @@ class TodoItemServiceTest {
 
     @Test
     void testSave() {
-        TodoItemRequestDTO requestDTO = new TodoItemRequestDTO("Test 123", false);
+        TodoItemCreateDTO requestDTO = new TodoItemCreateDTO("Test 123", false);
         TodoItem savedItem = new TodoItem(1L, "Test 123", false);
 
         when(todoItemRepository.save(any(TodoItem.class))).thenReturn(savedItem);
@@ -66,6 +68,7 @@ class TodoItemServiceTest {
     @Test
     void testFindById() {
         TodoItem item = new TodoItem(1L, "TestTodozz", false);
+
         when(todoItemRepository.findById(1L)).thenReturn(Optional.of(item));
 
         Optional<TodoItemResponseDTO> todoOptional = todoItemService.findById(1L);
