@@ -22,14 +22,16 @@ public class TodoItemsList {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long id;
+    private Long id;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "todoItems_id")
-    public List<TodoItem> todoItems;
+    private List<TodoItem> todoItems;
 
-    public String sortBy;
+    private String sortBy;
 
+    private String name;
+    
     
     public void sortItems(String sortBy, String direction) {
         Comparator<TodoItem> comparator;

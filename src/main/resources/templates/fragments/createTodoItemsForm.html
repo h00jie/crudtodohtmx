@@ -18,9 +18,15 @@
         <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Create a New Todo List</h2>
 
         <form hx-post="/todoItems/add" hx-target="#todoItemsList" hx-swap="outerHTML" class="space-y-6">
-            <div>
-                <label for="sortBy" class="block text-sm font-medium text-gray-700">Sort By</label>
-                <select id="sortBy" name="sortBy" class="mt-1 px-2 py-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+            <div class="">
+                <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Name:</label>
+                <input type="text" id="name" name="name" class="border p-2 w-full" placeholder="Enter list name"
+                    required>
+            </div>
+            <div class="">
+                <label for="sortBy" class="block text-gray-700 font-bold">Sort By</label>
+                <select id="sortBy" name="sortBy"
+                    class=" px-2 py-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
                     <option value="priority">Priority</option>
                     <option value="createdAt">Created At</option>
                     <option value="updatedAt">Updated At</option>
@@ -28,7 +34,8 @@
             </div>
 
             <div>
-                <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md transition duration-200">
+                <button type="submit"
+                    class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md transition duration-200">
                     Create Todo List
                 </button>
             </div>

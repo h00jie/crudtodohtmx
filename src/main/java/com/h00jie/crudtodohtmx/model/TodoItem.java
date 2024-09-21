@@ -23,20 +23,20 @@ public class TodoItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long id;
+    private Long id;
 
-    public String description;
+    private String description;
 
-    public boolean completed;
+    private boolean completed;
 
     @Column(nullable = false, updatable = false)
-    public LocalDateTime createdAt;
+    private LocalDateTime createdAt;
 
     @Column(nullable = false)
-    public LocalDateTime updatedAt;
+    private LocalDateTime updatedAt;
 
     @Enumerated(EnumType.STRING)
-    public Priority priority;
+    private Priority priority;
 
     @PrePersist
     protected void onCreate() {

@@ -22,7 +22,11 @@ public class TodoItemsService {
 
     public TodoItemsList createTodoItems(TodoItemsCreateDTO todoItemsCreateDTO) {
         TodoItemsList newTodoItems = new TodoItemsList();
-        newTodoItems.setSortBy(todoItemsCreateDTO.getSortBy());
+
+        newTodoItems.setName(todoItemsCreateDTO.name());
+        newTodoItems.setSortBy(todoItemsCreateDTO.sortBy());
+        newTodoItems.setTodoItems(java.util.Collections.emptyList());
+        
         return todoItemsRepository.save(newTodoItems);
     }
 

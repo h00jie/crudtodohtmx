@@ -3,10 +3,12 @@
     <div>
         <a th:href="@{/todos/{id}(id=${todoItems.id})}" class="text-gray-800">
             <span th:text="${todoItems.id}"></span> -
-            <span th:text="${todoItems.sortBy}">Sort By: Priority</span>
+            <span th:text="${todoItems.name}">[List Name]</span>
+            <span> - Sort By: </span>
+            <span th:text="${todoItems.sortBy}">Priority</span>
 
             <span th:if="${#lists.isEmpty(todoItems.todoItems)}" class="text-red-500">
-                (No Todo in this collection)
+                (No tasks in this collection)
             </span>
         </a>
     </div>
