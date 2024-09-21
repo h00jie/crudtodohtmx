@@ -1,8 +1,8 @@
-<div th:fragment="todoListFragment" id="todoList" class="space-y-4">
-    <div th:if="${#lists.isEmpty(todos)}" class="text-center text-gray-500 p-4">
+<div th:fragment="todoListFragment (todoItemsList)" id="todoList" class="space-y-4">
+    <div th:if="${#lists.isEmpty(todoItemsList.todoItems)}" class="text-center text-gray-500 p-4">
         No tasks available. Please add a new task.
     </div>
-    <div th:else th:each="todo : ${todos}">
-        <div th:replace="~{fragments/todoItem :: todoItemFragment (todo=${todo})}"></div>
+    <div th:else th:each="todo : ${todoItemsList.todoItems}">
+        <div th:replace="~{fragments/todoItem :: todoItemFragment (todoListId=${todoItemsList.id},todo=${todo})}"></div>
     </div>
 </div>

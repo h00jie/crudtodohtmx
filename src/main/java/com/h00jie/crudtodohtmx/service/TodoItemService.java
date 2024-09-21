@@ -34,7 +34,7 @@ public class TodoItemService {
     }
 
     public void addTodoToTodoItems(Long todoItemsId, TodoItemCreateDTO todoRequest) {
-        log.info("Adding todo item to TodoItems entity with id: {}", todoItemsId);
+        log.info("Adding todo item to TodoItemsList id: {}", todoItemsId);
         TodoItemsList todoItems = todoItemsRepository.findById(todoItemsId)
                 .orElseThrow(() -> new IllegalArgumentException("TodoItems not found"));
 

@@ -1,5 +1,5 @@
 
-<div th:fragment="todoItemFragment (todo)" 
+<div th:fragment="todoItemFragment (todoListId, todo)" 
      th:id="'todo-' + ${todo.id}"
      class="flex justify-between items-center bg-gray-50 p-4 rounded-lg shadow-sm">
     
@@ -9,16 +9,14 @@
     <div class="flex space-x-2">
 
         <button th:if="${!todo.completed}"
-                th:hx-post="|/todos/${todo.id}/complete|"
-                th:hx-target="|#todo-${todo.id}|"
-                th:hx-swap="outerHTML"
+                th:hx-post="|/todos/${todoListId}/complete/${todo.id}|"
+                hx-target="#todoList"
                 class="bg-green-500 hover:bg-green-600 text-white px-4 py-1 rounded transition duration-200">
             Complete
         </button>
         
-        <button th:hx-delete="|/todos/${todo.id}|"
-                th:hx-target="|#todo-${todo.id}|"
-                th:hx-swap="outerHTML"
+        <button th:hx-delete="|/todos/${todoListId}/delete/${todo.id}|"
+                hx-target="#todoList"
                 class="bg-red-500 hover:bg-red-600 text-white px-4 py-1 rounded transition duration-200">
             Delete
         </button>

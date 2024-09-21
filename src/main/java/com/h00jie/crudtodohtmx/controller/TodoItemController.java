@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.h00jie.crudtodohtmx.dto.TodoItemCreateDTO;
+import com.h00jie.crudtodohtmx.dto.TodoItemListSortDto;
 import com.h00jie.crudtodohtmx.dto.TodoItemUpdateDTO;
+import com.h00jie.crudtodohtmx.model.TodoItemsList;
 import com.h00jie.crudtodohtmx.service.TodoItemService;
+import com.h00jie.crudtodohtmx.service.TodoItemsService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,40 +25,53 @@ public class TodoItemController {
 
     private final TodoItemService todoService;
 
-    @GetMapping
-    public String getTodos(Model model) {
-        model.addAttribute("todos", todoService.findAll());
+    private final TodoItemsService todoListService;
+
+    @GetMapping("/{id}")
+    public String getTodos(@PathVariable Long id, Model model) {
+        TodoItemsList todoItemsList = todoListService.findById(id);
+        model.addAttribute("todoItemsList", todoItemsList);
+        
         return "todoList";
     }
 
     @PostMapping("/{todoItemsId}/add")
     public String addTodo(@PathVariable Long todoItemsId, @ModelAttribute TodoItemCreateDTO todoRequest, Model model) {
-        todoService.addTodoToTodoItems(todoItemsId, todoRequest);model.addAttribute("todos", todoService.findAll());
-        
+        todoService.addTodoToTodoItems(todoItemsId, todoRequest);
+        model.addAttribute("todoItemsList", todoListService.findById(todoItemsId));
+
         return "fragments/todoList :: todoListFragment";
     }
 
-    @PostMapping("/{id}/update")
-    public String updateTodo(@PathVariable Long id, @ModelAttribute TodoItemUpdateDTO todoRequest, Model model) {
+    @PostMapping("/{todoItemsId}/update/{id}")
+    public String updateTodo(@PathVariable Long todoItemsId, @PathVariable Long id, @ModelAttribute TodoItemUpdateDTO todoRequest, Model model) {
         todoService.updateTodoItem(todoRequest);
-        model.addAttribute("todos", todoService.findAll());
-        
+        model.addAttribute("todoItemsList", todoListService.findById(todoItemsId));
+
         return "fragments/todoList :: todoListFragment";
     }
 
-    @PostMapping("/{id}/complete")
-    public String completeTodo(@PathVariable Long id, Model model) {
+    @PostMapping("/{todoItemsId}/complete/{id}")
+    public String completeTodo(@PathVariable Long todoItemsId, @PathVariable Long id, Model model) {
         todoService.completeTodoItem(id);
-        model.addAttribute("todos", todoService.findAll());
-        
+        model.addAttribute("todoItemsList", todoListService.findById(todoItemsId));
+
         return "fragments/todoList :: todoListFragment";
     }
 
-    @DeleteMapping("/{id}")
-    public String deleteTodo(@PathVariable Long id, Model model) {
+    @DeleteMapping("/{todoItemsId}/delete/{id}")
+    public String deleteTodo(@PathVariable Long todoItemsId, @PathVariable Long id, Model model) {
         todoService.deleteById(id);
-        model.addAttribute("todos", todoService.findAll());
+        model.addAttribute("todoItemsList", todoListService.findById(todoItemsId));
+
+        return "fragments/todoList :: todoListFragment";
+    }
+
+    @PostMapping("/sort")
+    public String sort(@ModelAttribute TodoItemListSortDto todoItemListSortDto, Model model) {
         
+        model.addAttribute("todoItemsList", todoListService.sort(todoItemListSortDto));
+
         return "fragments/todoList :: todoListFragment";
     }
 }

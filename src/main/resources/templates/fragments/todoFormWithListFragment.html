@@ -1,6 +1,6 @@
 <div th:fragment="todoFormWithListFragment">
        <div class="flex justify-center items-center flex-grow">
-              <div th:replace="fragments/createTodoItemsForm :: createTodoItemsForm"></div>
+              <div th:replace="~{fragments/createTodoItemsForm :: createTodoItemsForm}"></div>
        </div>
 
        <div class="w-full  bg-white p-8 rounded-lg shadow-md">

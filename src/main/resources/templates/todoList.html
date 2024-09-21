@@ -14,19 +14,33 @@
 
     <div class="container mx-auto mt-8">
 
-        <div class="header bg-blue-500 text-white p-4">
-            <h1 class="text-3xl font-bold text-center">Todo Lista</h1>
+        <div class="header bg-blue-500 text-white p-4 flex justify-between items-center">
+            <h1 th:text="'Todo List Name: ' +${todoItemsList.name}" class="text-3xl font-bold">Todo Lista</h1>
+            <!-- Back Button -->
+            <a href="/" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition duration-200">
+                Back
+            </a>
         </div>
 
         <div class="flex justify-center items-start mt-8 space-x-8">
             <div class="w-full max-w-md">
-                <form hx-post="/todos" hx-target="#todoList" class="bg-white p-8 rounded-lg shadow-md">
+                <form th:hx-post="|/todos/${todoItemsList.id}/add|" hx-target="#todoList"
+                    class="bg-white p-8 rounded-lg shadow-md">
                     <input type="hidden" name="completed" value="false">
                     <div class="mb-4">
                         <label for="description" class="block text-gray-700 text-sm font-bold mb-2">Task
                             Description:</label>
                         <input type="text" id="description" name="description" class="border p-2 w-full rounded"
                             placeholder="Enter task" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="priority" class="block text-gray-700 text-sm font-bold mb-2">Task
+                            Priority:</label>
+                        <select name="priority" id="priority" class="border rounded p-2 ml-2">
+                            <option value="HIGH">High</option>
+                            <option value="MEDIUM">Medium</option>
+                            <option value="LOW">Low</option>
+                        </select>
                     </div>
                     <button type="submit"
                         class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 w-full rounded transition duration-200">
@@ -35,10 +49,47 @@
                 </form>
             </div>
 
-            
             <div class="w-full max-w-lg">
                 <div class="bg-white p-4 rounded-lg shadow-md">
-                    <div th:replace="~{fragments/todoList :: todoListFragment}"></div>
+                    <h4 class="font-bold text-center">Sort</h4>
+                    <div class="flex justify-between items-center mb-4">
+
+                        <form th:hx-post="|/todos/sort|" hx-target="#todoList"
+                            class="flex justify-between items-center w-full">
+                            <input type="hidden" name="id" th:value="${todoItemsList.id}">
+
+                            <div class="flex items-center space-x-4">
+                                <div>
+                                    <label for="sortBy" class="text-gray-700 font-bold">By:</label>
+                                    <select name="sortBy" id="sortBy" class="border rounded p-2 ml-2">
+                                        <option value="priority" th:selected="${todoItemsList.sortBy == 'priority'}">
+                                            Priority</option>
+                                        <option value="description"
+                                            th:selected="${todoItemsList.sortBy == 'description'}">Description</option>
+                                        <!-- <option value="createdAt">Created At</option>
+                                        <option value="updatedAt">Updated At</option> -->
+                                        <option value="completed" th:selected="${todoItemsList.sortBy == 'completed'}">
+                                            Is Completed</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="direction" class="text-gray-700 font-bold">Direction:</label>
+                                    <select name="direction" id="direction" class="border rounded p-2 ml-2">
+                                        <option value="asc" th:selected="${todoItemsList.sortDirectionBy == 'asc'}">Asc
+                                        </option>
+                                        <option value="desc" th:selected="${todoItemsList.sortDirectionBy == 'desc'}">Desc
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="submit"
+                                class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition duration-200 w-24">
+                                Sort
+                            </button>
+                        </form>
+                    </div>
+
+                    <div th:replace="~{fragments/todoList :: todoListFragment (todoItemsList=${todoItemsList})}"></div>
                 </div>
             </div>
 

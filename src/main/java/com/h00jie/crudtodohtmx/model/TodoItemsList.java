@@ -30,22 +30,27 @@ public class TodoItemsList {
 
     private String sortBy;
 
+    private String sortDirectionBy;
+
     private String name;
-    
-    
-    public void sortItems(String sortBy, String direction) {
+
+    /**
+     * @param sortBy
+     * @param direction
+     */
+    public void sortItems() {
         Comparator<TodoItem> comparator;
 
         switch (sortBy) {
             case "priority" -> comparator = Comparator.comparing(TodoItem::getPriority);
+            case "description" -> comparator = Comparator.comparing(TodoItem::getDescription);
             case "createdAt" -> comparator = Comparator.comparing(TodoItem::getCreatedAt);
             case "updatedAt" -> comparator = Comparator.comparing(TodoItem::getUpdatedAt);
-            default -> {
-                return;
-            }
+            case "completed" -> comparator = Comparator.comparing(TodoItem::isCompleted);
+            default -> comparator = Comparator.comparing(TodoItem::getDescription);
         }
 
-        if ("desc".equalsIgnoreCase(direction)) {
+        if ("desc".equalsIgnoreCase(sortDirectionBy)) {
             comparator = comparator.reversed();
         }
 
