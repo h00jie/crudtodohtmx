@@ -1,5 +1,6 @@
 package com.h00jie.crudtodohtmx.dto;
 
-public record TodoItemCreateDTO(String description, boolean completed) {
-    // Add validation here if needed (e.g., description must not be blank)
+import com.h00jie.crudtodohtmx.model.TodoItem.Priority;
+
+public record TodoItemCreateDTO(String description, Priority priority, boolean completed) {
 }

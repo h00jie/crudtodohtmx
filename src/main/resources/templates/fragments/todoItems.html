@@ -1,0 +1,16 @@
+<div th:fragment="todoItemsFragment (todoItems)"
+    class="flex justify-between items-center bg-gray-100 p-4 rounded-lg shadow-md mb-4">
+    <div>
+        <a th:href="@{/todos/{id}(id=${todoItems.id})}" class="text-gray-800">
+            <span th:text="${todoItems.id}"></span> -
+            <span th:text="${todoItems.sortBy}">Sort By: Priority</span>
+
+            <span th:if="${#lists.isEmpty(todoItems.todoItems)}" class="text-red-500">
+                (No Todo in this collection)
+            </span>
+        </a>
+    </div>
+    <button th:hx-delete="|/todoItems/${todoItems.id}/delete|" hx-target="#todoItemsList" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded ml-4">
+        Delete
+    </button>
+</div>

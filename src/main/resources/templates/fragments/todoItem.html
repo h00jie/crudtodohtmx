@@ -1,18 +1,3 @@
-<!-- <div th:fragment="todoItemFragment (todo)">
-    <div class="flex items-center justify-between">
-        <span th:classappend="${todo.completed} ? 'line-through text-gray-500' : ''"
-            th:text="${todo.description}"></span>
-        <div>
-            <button th:hx-post="|/todos/${todo.id}/complete|" hx-target="#todoList"
-                class="bg-green-500 text-white px-2 py-1">
-                Complete
-            </button>
-            <button th:hx-delete="|/todos/${todo.id}|" hx-target="#todoList" class="bg-red-500 text-white px-2 py-1">
-                Delete
-            </button>
-        </div>
-    </div>
-</div> -->
 
 <div th:fragment="todoItemFragment (todo)" 
      th:id="'todo-' + ${todo.id}"

@@ -1,0 +1,12 @@
+<div th:fragment="todoItemsList (todoItemsList)">
+    <div id="spinner" class="spinner"></div>
+    <ul id="todoItemsList">
+        <li th:if="${#lists.isEmpty(todoItemsList)}" class="text-gray-500">
+            No TodoLists yet. Create one!
+        </li>
+
+        <li th:each="todoItems : ${todoItemsList}" th:id="'todoItems-' + ${todoItems.id}">
+            <div th:replace="~{fragments/todoItems :: todoItemsFragment (todoItems=${todoItems})}"></div>
+        </li>
+    </ul>
+</div>

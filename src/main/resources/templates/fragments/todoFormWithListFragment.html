@@ -1,0 +1,12 @@
+<div th:fragment="todoFormWithListFragment">
+       <div class="flex justify-center items-center flex-grow">
+              <div th:replace="fragments/createTodoItemsForm :: createTodoItemsForm"></div>
+       </div>
+
+       <div class="w-full  bg-white p-8 rounded-lg shadow-md">
+              <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Available Todo Collections</h2>
+              <!-- <h2 class="text-2xl mb-4">Available Todo Collections</h2> -->
+
+              <div th:replace="~{fragments/todoItemsList :: todoItemsList (todoItemsList=${todoItemsList})}"></div>
+       </div>
+</div>
