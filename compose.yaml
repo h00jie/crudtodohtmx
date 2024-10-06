@@ -6,4 +6,4 @@ services:
       - 'POSTGRES_PASSWORD=your_db_password'
       - 'POSTGRES_USER=your_db_username'
     ports:
-      - '5432'
+      - '15432:5432'
