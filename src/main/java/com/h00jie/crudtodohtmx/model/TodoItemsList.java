@@ -34,10 +34,6 @@ public class TodoItemsList {
 
     private String name;
 
-    /**
-     * @param sortBy
-     * @param direction
-     */
     public void sortItems() {
         Comparator<TodoItem> comparator;
 

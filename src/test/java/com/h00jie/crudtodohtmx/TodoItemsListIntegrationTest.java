@@ -1,6 +1,8 @@
 package com.h00jie.crudtodohtmx;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,10 +18,9 @@ import com.h00jie.crudtodohtmx.service.TodoItemsService;
 public class TodoItemsListIntegrationTest {
 
     @Autowired
-    private TodoItemsService todoItemsService;
-
-    @Autowired
     private TodoItemsRepository todoItemsRepository;
+
+    private final TodoItemsService todoItemsService = new TodoItemsService(todoItemsRepository);
 
     @Test
     public void testCreateAndRetrieveTodoItemsList() {
